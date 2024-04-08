@@ -49,7 +49,7 @@ jobs:
         run: |
           ls
           npm install -g @angular/cli
-          npm install
+          npm install --legacy-peer-deps
           ng build
           
       # 7. Copy to S3 bucket.
