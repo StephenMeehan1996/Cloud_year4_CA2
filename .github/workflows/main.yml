@@ -54,9 +54,9 @@ jobs:
         run: aws s3 sync ./dist/ca2 s3://ca2-s00213963/ca2
           
       # 7. (Optional) Invalidate CloudFront
-      - name: Invalidate CloudFront
-        run: |
-          aws cloudfront create-invalidation --distribution-id <CLOUDFRONT DISTRIBUTION ID> --paths "/*"
+      # - name: Invalidate CloudFront
+      #   run: |
+      #     aws cloudfront create-invalidation --distribution-id <CLOUDFRONT DISTRIBUTION ID> --paths "/*"
 
     #   aws s3 cp ./dist/* s3://ca2-s00213963
     #  - name: Deploy
