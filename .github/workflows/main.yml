@@ -30,8 +30,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.17.1'
+
+        # 4. Install Firebase and AngularFire
+      - name: Install Firebase and AngularFire
+        run: npm install firebase @angular/fire --legacy-peer-deps
           
-      # 4. Setup Cache
+      # 5. Setup Cache
       - name: Setup Cache
         uses: actions/cache@v3
         with:
@@ -40,7 +44,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # 5. Build Angular
+      # 6. Build Angular
       - name: Build Angular Application
         run: |
           ls
@@ -48,12 +52,12 @@ jobs:
           npm install
           ng build
           
-      # 6. Copy to S3 bucket.
+      # 7. Copy to S3 bucket.
       - name: Copy to S3 Bucket
         if: success()
         run: aws s3 sync ./dist/ca2 s3://ca2-s00213963/ca2
           
-      #7. (Optional) Invalidate CloudFront
+      #8. (Optional) Invalidate CloudFront
       - name: Invalidate CloudFront
         run: |
           aws cloudfront create-invalidation --distribution-id E31XIJS7PTQ13Y --paths "/*"
