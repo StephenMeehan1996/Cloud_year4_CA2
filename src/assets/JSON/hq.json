@@ -1,0 +1,110 @@
+[
+    {
+        "StoreID": "HEADOFFICEIRELAND",
+        "StoreLocation": "Head Office Ireland",
+        "StockItem": "Burgers",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEIRELAND",
+        "StoreLocation": "Head Office Ireland",
+        "StockItem": "Burger Buns",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEIRELAND",
+        "StoreLocation": "Head Office Ireland",
+        "StockItem": "Chips",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEIRELAND",
+        "StoreLocation": "Head Office Ireland",
+        "StockItem": "Ketchup",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEIRELAND",
+        "StoreLocation": "Head Office Ireland",
+        "StockItem": "Mayo",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEIRELAND",
+        "StoreLocation": "Head Office Ireland",
+        "StockItem": "Chicken",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEIRELAND",
+        "StoreLocation": "Head Office Ireland",
+        "StockItem": "Chicken Tenders",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEIRELAND",
+        "StoreLocation": "Head Office Ireland",
+        "StockItem": "Taco Mince",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEIRELAND",
+        "StoreLocation": "Head Office Ireland",
+        "StockItem": "Pizza Dough",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEUSA",
+        "StoreLocation": "Head Office USA",
+        "StockItem": "Burgers",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEUSA",
+        "StoreLocation": "Head Office USA",
+        "StockItem": "Burger Buns",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEUSA",
+        "StoreLocation": "Head Office USA",
+        "StockItem": "Chips",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEUSA",
+        "StoreLocation": "Head Office USA",
+        "StockItem": "Ketchup",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEUSA",
+        "StoreLocation": "Head Office USA",
+        "StockItem": "Mayo",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEUSA",
+        "StoreLocation": "Head Office USA",
+        "StockItem": "Chicken",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEUSA",
+        "StoreLocation": "Head Office USA",
+        "StockItem": "Chicken Tenders",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEUSA",
+        "StoreLocation": "Head Office USA",
+        "StockItem": "Taco Mince",
+        "StockLevel": 100
+    },
+    {
+        "StoreID": "HEADOFFICEUSA",
+        "StoreLocation": "Head Office USA",
+        "StockItem": "Pizza Dough",
+        "StockLevel": 100
+    }
+]

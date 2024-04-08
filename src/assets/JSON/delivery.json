@@ -1,0 +1,84 @@
+[
+    {
+        "DeliveryID": "e0f08929-349e-4b05-ba49-8f6b0ad6e012",
+        "DeliveryDriver": "7a6382a9-0944-4fe2-af5b-eb5e84e1eb41",
+        "Pickup": "HEADOFFICEIRELAND",
+        "StoreLocation": "Store 1",
+        "Order": [
+            {
+                "StockItem": "Burgers",
+                "Amount": 20
+            },
+            {
+                "StockItem": "Chips",
+                "Amount": 30
+            },
+            {
+                "StockItem": "Chicken",
+                "Amount": 10
+            }
+        ]
+    },
+    {
+        "DeliveryID": "44fc6da4-421f-40cd-a67f-4bbd0aa3e6bc",
+        "DeliveryDriver": "7a6382a9-0944-4fe2-af5b-eb5e84e1eb41",
+        "Pickup": "HEADOFFICEIRELAND",
+        "StoreLocation": "Store 2",
+        "Order": [
+            {
+                "StockItem": "Burger Buns",
+                "Amount": 15
+            },
+            {
+                "StockItem": "Ketchup",
+                "Amount": 20
+            },
+            {
+                "StockItem": "Chicken Tenders",
+                "Amount": 10
+            }
+        ]
+    },
+    {
+        "DeliveryID": "acb6b2e4-f2c7-4910-91b4-d0c0b0cbda11",
+        "DeliveryDriver": "4a9aef8d-8450-4a2e-b88d-57d3f0aeac02",
+        "Pickup": "HEADOFFICEUSA",
+        "StoreLocation": "Store 3",
+        "Order": [
+            {
+                "StockItem": "Burgers",
+                "Amount": 50
+            },
+            {
+                "StockItem": "Chips",
+                "Amount": 60
+            },
+            {
+                "StockItem": "Chicken",
+                "Amount": 30
+            }
+        ]
+    },
+    {
+        "DeliveryID": "6fd38253-c522-4470-8ae4-381bf6b2de3a",
+        "DeliveryDriver": "4a9aef8d-8450-4a2e-b88d-57d3f0aeac02",
+        "Pickup": "HEADOFFICEUSA",
+        "StoreLocation": "Store 3",
+        "Order": [
+            {
+                "StockItem": "Burger Buns",
+                "Amount": 35
+            },
+            {
+                "StockItem": "Ketchup",
+                "Amount": 40
+            },
+            {
+                "StockItem": "Chicken Tenders",
+                "Amount": 20
+            }
+        ]
+    }
+]
+
+
