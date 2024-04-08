@@ -1,0 +1,26 @@
+nav {
+    background-color: #333; /* Set the background color of the navbar */
+    color: #fff; /* Set the text color */
+    padding: 10px; /* Add padding to the navbar */
+  }
+  
+  .navbar-container {
+    display: flex; /* Use flexbox layout for the links */
+    justify-content: space-between; /* Space the links evenly */
+    align-items: center; /* Vertically center the links */
+  }
+  
+  a {
+    color: #fff; /* Set the default text color for links */
+    text-decoration: none; /* Remove underline from links */
+    padding: 8px 12px; /* Add padding to the links */
+    border-radius: 4px; /* Add rounded corners to the links */
+  }
+  
+  a:hover {
+    background-color: #555; /* Change background color on hover */
+  }
+  
+  .active {
+    background-color: #007bff; /* Change background color for active link */
+  }
