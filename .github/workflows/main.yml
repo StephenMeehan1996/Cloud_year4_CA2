@@ -30,11 +30,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.17.1'
-
-        # 4. Install Firebase and AngularFire
+          
+      # 4. Install Firebase and AngularFire with legacy peer deps
       - name: Install Firebase and AngularFire
         run: npm install firebase @angular/fire --legacy-peer-deps
-          
+      
       # 5. Setup Cache
       - name: Setup Cache
         uses: actions/cache@v3
@@ -57,10 +57,7 @@ jobs:
         if: success()
         run: aws s3 sync ./dist/ca2 s3://ca2-s00213963/ca2
           
-      #8. (Optional) Invalidate CloudFront
+      # 8. Invalidate CloudFront
       - name: Invalidate CloudFront
         run: |
           aws cloudfront create-invalidation --distribution-id E31XIJS7PTQ13Y --paths "/*"
-
-    #   aws s3 cp ./dist/* s3://ca2-s00213963
-    #  - name: Deploy
