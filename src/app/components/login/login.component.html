@@ -1,1 +1,5 @@
-<p>login works2122!</p>
+<div>
+    <input type="text" [(ngModel)]="username" placeholder="Username">
+    <input type="password" [(ngModel)]="password" placeholder="Password">
+    <button (click)="onSignInButtonClicked(username, password)">Sign In</button>
+  </div>
