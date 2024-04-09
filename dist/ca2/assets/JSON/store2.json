@@ -1,0 +1,56 @@
+[
+    {
+        "StoreID": "f719238f-21a0-4f0b-b60c-99d6b1a93f2b",
+        "StoreLocation": "Store 2",
+        "StockItem": "Burgers",
+        "StockLevel": 10
+    },
+    {
+        "StoreID": "f719238f-21a0-4f0b-b60c-99d6b1a93f2b",
+        "StoreLocation": "Store 2",
+        "StockItem": "Burger Buns",
+        "StockLevel": 10
+    },
+    {
+        "StoreID": "f719238f-21a0-4f0b-b60c-99d6b1a93f2b",
+        "StoreLocation": "Store 2",
+        "StockItem": "Chips",
+        "StockLevel": 10
+    },
+    {
+        "StoreID": "f719238f-21a0-4f0b-b60c-99d6b1a93f2b",
+        "StoreLocation": "Store 2",
+        "StockItem": "Ketchup",
+        "StockLevel": 10
+    },
+    {
+        "StoreID": "f719238f-21a0-4f0b-b60c-99d6b1a93f2b",
+        "StoreLocation": "Store 2",
+        "StockItem": "Mayo",
+        "StockLevel": 10
+    },
+    {
+        "StoreID": "f719238f-21a0-4f0b-b60c-99d6b1a93f2b",
+        "StoreLocation": "Store 2",
+        "StockItem": "Chicken",
+        "StockLevel": 10
+    },
+    {
+        "StoreID": "f719238f-21a0-4f0b-b60c-99d6b1a93f2b",
+        "StoreLocation": "Store 2",
+        "StockItem": "Chicken Tenders",
+        "StockLevel": 10
+    },
+    {
+        "StoreID": "f719238f-21a0-4f0b-b60c-99d6b1a93f2b",
+        "StoreLocation": "Store 2",
+        "StockItem": "Taco Mince",
+        "StockLevel": 10
+    },
+    {
+        "StoreID": "f719238f-21a0-4f0b-b60c-99d6b1a93f2b",
+        "StoreLocation": "Store 2",
+        "StockItem": "Pizza Dough",
+        "StockLevel": 10
+    }
+]
