@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { environment } from 'src/environments/environment.development';
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { HttpClientModule } from '@angular/common/http';
 // import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 // import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 // import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
@@ -26,7 +27,8 @@ import { AngularFireAuthModule } from "@angular/fire/compat/auth";
     AppRoutingModule,
     FormsModule, // Add FormsModule to imports
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

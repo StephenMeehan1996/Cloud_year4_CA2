@@ -20,3 +20,94 @@
     font-weight: bold; /* Make the text bold */
     margin-bottom: 10px; /* Add margin bottom to separate the paragraph */
   }
+
+  .stock-item {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stock-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  .stock-table th,
+  .stock-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .stock-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  .stock-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .stock-table tbody tr:hover {
+    background-color: #f0f0f0;
+  }
+
+  .store-info {
+  margin-bottom: 20px;
+}
+
+.store-info h2 {
+  margin: 0;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.stock-table th,
+.stock-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.stock-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.stock-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.stock-table tbody tr:hover {
+  background-color: #f0f0f0;
+}
+
+.store-info {
+    margin-bottom: 20px;
+  }
+
+  .store-info {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .store-info h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+  }
+  
+  .store-info h3:first-child {
+    margin-bottom: 10px;
+  }
+  
