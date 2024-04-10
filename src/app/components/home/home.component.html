@@ -84,7 +84,8 @@
   <table class="stock-table">
     <thead>
       <tr>
-        <th>Store Location</th>
+        <th>Date</th>
+        <th>Status</th>
         <th>Store Location</th>
         <th>Delivery ID</th>
         <th>Delivery Driver</th>
@@ -97,6 +98,7 @@
     <tbody>
       <tr *ngFor="let delivery of filteredData; let i = index">
         <td>{{ delivery.date.S }}</td>
+        <td>{{ delivery.status.N }}</td>
         <td>{{ delivery.StoreLocation.S }}</td>
         <td>{{ delivery.DeliveryID.S }}</td>
         <td>{{ delivery.DeliveryDriver.S }}</td>

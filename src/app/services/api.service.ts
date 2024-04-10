@@ -14,7 +14,7 @@ export class ApiService {
   private storeStockURL = 'https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/StoreStock/f719238f-21a0-4f0b-b60c-99d6b1a93f2b'; 
   
   //private updateDelURL = "https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/Deliverys/"
-   private updateDelURL = "https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/Update/";
+   private updateDelURL = "https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/UpdateStatus";
   
 
   constructor(private http: HttpClient, private userService: UserService) { }
@@ -65,9 +65,14 @@ export class ApiService {
   
   }
 
-  updateDeliveryStatus(deliveryId: string, newStatus: number): Observable<any> {
-    const url = `${this.updateDelURL}/${deliveryId}`;
-    return this.http.get<any>(url);
+  updateDeliveryStatus(deliveryId: string): Observable<any> {
+
+    let obj = {
+      deliveryId: deliveryId
+    }
+
+    const url = `${this.updateDelURL}`;
+    return this.http.put<any>(url, obj);
   }
 
  
