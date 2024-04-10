@@ -1,4 +1,4 @@
-import { Component, OnDestroy,NgZone, OnInit } from '@angular/core';
+import { Component, OnDestroy, NgZone, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
@@ -13,15 +13,15 @@ import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  
+
   subject = webSocket('wss://u3iw9dl7f4.execute-api.eu-west-1.amazonaws.com/dev/?id=HEADOFFICEIRELAND');
-  
-  constructor(private router: Router, private userService: UserService,private apiService: ApiService,private webSocketService: WebSocketService,private zone: NgZone) { }
+
+  constructor(private router: Router, private userService: UserService, private apiService: ApiService, private webSocketService: WebSocketService, private zone: NgZone) { }
 
   user: any = this.userService.getUser()
-  id: any ;
+  id: any;
   stockData: any;
-  storeLocation : string = ''
+  storeLocation: string = ''
   storeID: string = ''
 
   subscriptionStock: Subscription = new Subscription;
@@ -29,38 +29,38 @@ export class HomeComponent implements OnInit, OnDestroy {
   messages: string[] = [];
   subscriptionNotify: Subscription = new Subscription;
 
-   // Parse the provided JSON data into this array
+  // Parse the provided JSON data into this array
 
   delData!: any;
 
-  filteredOrders: any;
-  filterDriverId: string = '';
+  filteredData: any;
+  uniqueDrivers: any;
+  selectedDriver: string = "all";
 
-  selectedItem: string = '';
+  selectedItem: string = ''
   quantity: number = 1;
   cartItems: { stockItem: string, amount: number }[] = [];
 
- 
+
   ngOnInit(): void {
     this.subscriptionStock = this.apiService.getStockData().subscribe((data: any) => {
       this.id = this.userService.getID();
       if (this.id != 3) {
         this.stockData = data;
-        console.log(this.stockData); 
+        console.log(this.stockData);
         this.storeLocation = this.stockData[0].StoreLocation.S;
         this.storeID = this.stockData[0].StoreID.S;
       } else {
         // Extract the array from the data object and assign it to stockData
         this.stockData = JSON.parse(data.body); // Transform object to array
         console.log(this.stockData);
-        alert(typeof(this.stockData))
-
-        
+        this.filteredData = this.stockData;
+        this.getUniqueDrivers();
       }
     });
 
-  
-    
+
+
 
     this.webSocketService.connect('HEADOFFICEIRELAND');
 
@@ -77,46 +77,33 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     );
 
- 
+
   }
 
-   extractTypeNotation(obj: any): any {
-    if (Array.isArray(obj)) {
-        // If obj is an array, map over its elements and recursively extract type notation
-        return obj.map(item => this.extractTypeNotation(item));
-    } else if (typeof obj === 'object' && obj !== null) {
-        // If obj is an object, iterate over its properties and recursively extract type notation
-        const result: any = {};
-        for (const key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                result[key] = this.extractTypeNotation(obj[key]);
-            }
+  getUniqueDrivers() {
+    console.log('Inside getUniqueDrivers function');
+    try {
+      const driversSet = new Set();
+      this.stockData.forEach((delivery: { DeliveryDriver: { S?: unknown; }; }) => {
+        console.log('Processing delivery:', delivery);
+        if (delivery && delivery.DeliveryDriver && delivery.DeliveryDriver.S) {
+          driversSet.add(delivery.DeliveryDriver.S);
+        } else {
+          console.warn('Invalid delivery object:', delivery);
         }
-        return result;
-    } else {
-        // If obj is neither an array nor an object, return its type
-        return typeof obj;
+      });
+      this.uniqueDrivers = Array.from(driversSet);
+      console.log('Unique drivers:', this.uniqueDrivers);
+    } catch (error) {
+      console.error('Error in getUniqueDrivers:', error);
     }
-}
-
-// Assuming your JSON array is named jsonData
-
-
-
-  applyFilter() {
-    this.filteredOrders = this.stockData.filter((order: any) => {
-      // Ensure that the structure of ordersData matches the structure of your orders
-      // Access DeliveryDriver.S accordingly
-      if (order.DeliveryDriver && order.DeliveryDriver.S) {
-        return order.DeliveryDriver.S.includes(this.filterDriverId);
-      }
-      return false; // Handle the case where DeliveryDriver is not present or doesn't have an S property
-    });
   }
-
-  completeOrder(deliveryId: string) {
-    // Logic to handle completing the order
-    console.log(`Order with DeliveryID ${deliveryId} completed.`);
+  applyFilter() {
+    if (this.selectedDriver === "all") {
+      this.filteredData = this.stockData;
+    } else {
+      this.filteredData = this.stockData.filter((delivery: { DeliveryDriver: { S: string; }; }) => delivery.DeliveryDriver.S === this.selectedDriver);
+    }
   }
 
 
@@ -128,7 +115,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  placeOrder(){
+  placeOrder() {
 
 
     this.apiService.postOrder(this.cartItems).subscribe(
@@ -143,17 +130,37 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  testGet(): void{
+  testGet(): void {
     console.log(this.webSocketService.getMessages())
   }
 
-  sendNotification(message: string): void{
+  sendNotification(message: string): void {
     this.webSocketService.sendMessage('Testing send message');
   }
 
   ngOnDestroy(): void {
-    
+
     this.subscriptionStock.unsubscribe();
     this.subscriptionNotify.unsubscribe();
+  }
+
+  
+  completeDelivery(deliveryID: string, index: number) {
+    // Print delivery ID
+    console.log("Delivery ID: ", deliveryID);
+
+    // Remove the delivery from the table
+    this.filteredData.splice(index, 1);
+
+    this.apiService.updateDeliveryStatus(deliveryID, 1).subscribe(
+      response => {
+        console.log('Response:', response);
+        // Handle success response here
+      },
+      error => {
+        console.error('Error:', error);
+        // Handle error response here
+      }
+    );
   }
 }

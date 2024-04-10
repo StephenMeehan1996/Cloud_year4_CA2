@@ -31,10 +31,10 @@
         </tbody>
       </table>
     </div>
-  
+
     <div class="place-order-container">
       <select [(ngModel)]="selectedItem" style="margin-right: 15px; padding: 2%;">
-        <option *ngFor="let item of stockData" [value]="item.StockItem.S" >{{ item.StockItem.S }}</option>
+        <option *ngFor="let item of stockData" [value]="item.StockItem.S">{{ item.StockItem.S }}</option>
       </select>
       <input type="number" [(ngModel)]="quantity" placeholder="Quantity" style="margin-right: 10px; padding: 2%;">
       <button (click)="addToCart()" style="margin-right: 10px; padding: 2%;">Add to Cart</button>
@@ -62,31 +62,41 @@
   </div>
 
 
-  
-  
+
+
   <div class="user-info-container">
     <button (click)="sendNotification('Help')">Test</button>
     <button (click)="testGet()">Test</button>
   </div>
 </div>
 
-<div *ngIf="id == 3" class="stock-table">
+<div *ngIf="id == 3">
 
-  <input type="text" [(ngModel)]="filterDriverId" (input)="applyFilter()" placeholder="Filter by DriverID">
+  <div style="margin-bottom: 10px;">
+    <label for="driverFilter">Filter by Delivery Driver:</label>
+    <select id="driverFilter" [(ngModel)]="selectedDriver" (change)="applyFilter()"
+      style="padding: 1%; margin-right: 20px;">
+      <option value="all">All</option>
+      <option *ngFor="let driver of uniqueDrivers" [value]="driver">{{ driver }}</option>
+    </select>
+  </div>
 
-  <table>
+  <table class="stock-table">
     <thead>
       <tr>
+        <th>Store Location</th>
         <th>Store Location</th>
         <th>Delivery ID</th>
         <th>Delivery Driver</th>
         <th>Pickup</th>
         <th>Stock Item</th>
         <th>Amount</th>
+        <th>Action</th> <!-- Added column for the action button -->
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let delivery of stockData">
+      <tr *ngFor="let delivery of filteredData; let i = index">
+        <td>{{ delivery.date.S }}</td>
         <td>{{ delivery.StoreLocation.S }}</td>
         <td>{{ delivery.DeliveryID.S }}</td>
         <td>{{ delivery.DeliveryDriver.S }}</td>
@@ -101,11 +111,15 @@
             {{ orderItem.M.Amount.N }}<br>
           </ng-container>
         </td>
+        <td>
+          <button (click)="completeDelivery(delivery.DeliveryID.S, i)" class="complete-button">Complete</button>
+        </td>
       </tr>
     </tbody>
   </table>
   
 
-  
-  
+
+
+
 </div>
