@@ -33,8 +33,15 @@ export class WebSocketService {
 
   // Method to send message over WebSocket
   sendMessage(message: any): void {
+
+    let obj ={
+      action: "sendMessage",
+      message: "Testing Message from Client"
+    }
+
+    console.log(JSON.stringify(obj))
     if (this.webSocketSubject) {
-      this.webSocketSubject.next(message);
+      this.webSocketSubject.next(JSON.stringify(obj));
     } else {
       console.error('WebSocket connection not established.');
     }

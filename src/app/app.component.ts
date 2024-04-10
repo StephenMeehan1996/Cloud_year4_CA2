@@ -20,9 +20,9 @@ export class AppComponent {
   logout() {
     
     this.userService.setUser(null);
-   
+   this.userService.setID(null);
     this.webSocketService.disconnect();
-    
+
     this.auth.logout();
  
     this.router.navigate(['/login']);

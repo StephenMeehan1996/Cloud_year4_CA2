@@ -1,35 +1,111 @@
-
 <div class="user-info-container">
   <p>User Information:</p>
   <ul>
     <li>Email: {{ user?.email }}</li>
     <li>Last Log In: {{ user?.metadata.lastSignInTime }}</li>
+    <li>ID: {{ id }}</li>
     <!-- Add more user information as needed -->
   </ul>
 </div>
 
-<div class="store-info">
-  <h3>Store ID: {{ storeID }}</h3>
-  <h3>Store Location: {{ storeLocation }}</h3>
+<div *ngIf="id == 1 || id == 2">
+  <div class="store-info">
+    <h3>Store ID: {{ storeID }}</h3>
+    <h3>Store Location: {{ storeLocation }}</h3>
+  </div>
+
+  <div class="container">
+    <div class="stock-table-container">
+      <table class="stock-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Stock Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of stockData">
+            <td>{{ item.StockItem.S }}</td>
+            <td>{{ item.StockLevel.N }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="place-order-container">
+      <select [(ngModel)]="selectedItem" style="margin-right: 15px; padding: 2%;">
+        <option *ngFor="let item of stockData" [value]="item.StockItem.S" >{{ item.StockItem.S }}</option>
+      </select>
+      <input type="number" [(ngModel)]="quantity" placeholder="Quantity" style="margin-right: 10px; padding: 2%;">
+      <button (click)="addToCart()" style="margin-right: 10px; padding: 2%;">Add to Cart</button>
+
+      <div class="order-summary">
+        <h2>Order Summary</h2>
+        <table class="stock-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let orderItem of cartItems">
+              <td>{{ orderItem.stockItem }}</td>
+              <td>{{ orderItem.amount }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button (click)="placeOrder()" style="margin-right: 10px; padding: 2%;">Place Order</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  
+  
+  <div class="user-info-container">
+    <button (click)="sendNotification('Help')">Test</button>
+    <button (click)="testGet()">Test</button>
+  </div>
 </div>
 
-<table class="stock-table">
-  <thead>
-    <tr>
-      <th>Item</th>
-      <th>Stock Level</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of stockData">
-      <td>{{ item.StockItem.S }}</td>
-      <td>{{ item.StockLevel.N }}</td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="id == 3" class="stock-table">
 
-<div class="user-info-container">
-  <button  (click)="sendNotification('Help')">Test</button>
-  <button  (click)="testGet()">Test</button>
+  <input type="text" [(ngModel)]="filterDriverId" (input)="applyFilter()" placeholder="Filter by DriverID">
+
+  <table>
+    <thead>
+      <tr>
+        <th>Store Location</th>
+        <th>Delivery ID</th>
+        <th>Delivery Driver</th>
+        <th>Pickup</th>
+        <th>Stock Item</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let delivery of stockData">
+        <td>{{ delivery.StoreLocation.S }}</td>
+        <td>{{ delivery.DeliveryID.S }}</td>
+        <td>{{ delivery.DeliveryDriver.S }}</td>
+        <td>{{ delivery.Pickup.S }}</td>
+        <td>
+          <ng-container *ngFor="let orderItem of delivery.Order.L">
+            {{ orderItem.M.StockItem.S }}<br>
+          </ng-container>
+        </td>
+        <td>
+          <ng-container *ngFor="let orderItem of delivery.Order.L">
+            {{ orderItem.M.Amount.N }}<br>
+          </ng-container>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+  
+  
 </div>
-

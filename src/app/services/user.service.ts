@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class UserService {
 
   private user: any; // Adjust the type of user object as per your application
+  private id : any
 
   constructor() {}
 
@@ -16,5 +17,14 @@ export class UserService {
 
   getUser() {
     return this.user;
+  }
+
+
+  setID(id: any){
+    this.id=id
+  }
+
+  getID(){
+    return this.id
   }
 }

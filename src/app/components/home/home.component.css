@@ -110,4 +110,16 @@
   .store-info h3:first-child {
     margin-bottom: 10px;
   }
+  .container {
+    display: flex;
+  }
+  
+  .stock-table-container {
+    flex: 1;
+    margin-right: 20px; /* Adjust margin as needed */
+  }
+  
+  .place-order-container {
+    flex: 1;
+  }
   
