@@ -150,7 +150,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     console.log("Delivery ID: ", deliveryID);
 
     // Remove the delivery from the table
-   // this.filteredData.splice(index, 1);
+    // this.filteredData.splice(index, 1);
 
     this.apiService.updateDeliveryStatus(deliveryID).subscribe(
       response => {

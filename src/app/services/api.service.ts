@@ -41,11 +41,17 @@ export class ApiService {
     
   }
 
+  //Order Complete// 
+  //Set order to one// 
+  //Write to s3//
+  //S3//
+
   postOrder(orderData: any): Observable<any> {
     let deliveryURL = 'https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/Deliverys';
     const transformedJson = {
       "pickupLocation": "HEADOFFICEIRELAND",
       "storeLocation": "Store 1",
+      "storeid": "f719238f-21a0-4f0b-b60c-99d6b1a93f2b",
       "items": orderData.map((item: { stockItem: any; amount: any; }) => ({
         "stockItem": item.stockItem,
         "amount": item.amount
