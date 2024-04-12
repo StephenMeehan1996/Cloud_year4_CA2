@@ -2,11 +2,21 @@
 <div>
 
   <nav class="navbar-container" *ngIf="userService.getUser()">
+  
     <a routerLink="/home" routerLinkActive="active">Home</a>
-    <a routerLink="/login" routerLinkActive="active" (click)="logout()" >Logout</a>
+    <div style="display: flex; flex-direction: row;">
+      <a routerLink="/login" routerLinkActive="active" (click)="logout()" >Logout</a>
+
+    </div>
+
+  
+  
     
     <!-- Add links for other routes as needed -->
   </nav>
-  <router-outlet></router-outlet>
+
+  
+  
+  <router-outlet ></router-outlet>
 </div>
 

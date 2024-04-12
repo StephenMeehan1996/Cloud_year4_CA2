@@ -23,12 +23,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   stockData: any;
   orderHistory: Order[] =[]
   selectedDate: string = '';
+  storeDetail: any;
   displayedOrder: Order | undefined;
   storeLocation: string = ''
   storeID: string = ''
 
   subscriptionStock: Subscription = new Subscription;
   subscriptionHistory: Subscription = new Subscription;
+  subscriptionDetail: Subscription = new Subscription;
 
   messages: string[] = [];
   subscriptionNotify: Subscription = new Subscription;
@@ -44,6 +46,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   selectedItem: string = ''
   quantity: number = 1;
   cartItems: { stockItem: string, amount: number }[] = [];
+
+
 
 
   activeTab = 'activeDeliveries';
@@ -83,6 +87,11 @@ export class HomeComponent implements OnInit, OnDestroy {
           console.log('Order History: ' + JSON.stringify(this.orderHistory));
         });
       }
+    });
+
+    this.subscriptionDetail = this.apiService.getOfficeDetailHistory(this.user?.uid).subscribe((data: any) => {
+      this.storeDetail =  data;
+      console.log('Order History: ' + JSON.stringify(this.storeDetail));
     });
 
 

@@ -13,6 +13,7 @@ export class ApiService {
   private getDeliveryURL ='https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/Deliverys'
   private storeStockURL = 'https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/StoreStock/'; 
   private historyURL = 'https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/OrderHistory'
+  private officeDetail ='https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/detail/'
   
   //private updateDelURL = "https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/Deliverys/"
    private updateDelURL = "https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/UpdateStatus";
@@ -45,6 +46,13 @@ export class ApiService {
   getOrderHistory(): Observable<any> {
 
     return this.http.get<any>(this.historyURL);
+
+  }
+
+  getOfficeDetailHistory(id: any): Observable<any> {
+
+    
+    return this.http.get<any>(this.officeDetail+id);
 
   }
 

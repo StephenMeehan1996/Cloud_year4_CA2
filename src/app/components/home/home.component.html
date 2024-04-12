@@ -1,12 +1,21 @@
-<div class="user-info-container">
-  <p>User Information:</p>
-  <ul>
-    <li>Email: {{ user?.email }}</li>
-    <li>Last Log In: {{ user?.metadata.lastSignInTime }}</li>
-    <li>UID: {{ user?.uid }}</li>
-    <li>ID: {{ id }}</li>
-    <!-- Add more user information as needed -->
-  </ul>
+
+
+<div class="card-container">
+  <div class="card" *ngFor="let store of storeDetail">
+    <div style="display: flex; flex-direction: col;">
+      <img [src]="store.Flag.S" alt="Flag">
+      <img [src]="store.Image.S" alt="Flag">
+
+    </div>
+   
+    <div class="card-info">
+      
+      <p>Address: {{ store.Address.S }}</p>
+      <p>Info: {{ store.Info.S }}</p>
+      <p>Email: {{ user?.email }}</p>
+      <p>Last Log In: {{ user?.metadata.lastSignInTime }}</p>
+    </div>
+  </div>
 </div>
 
 <div *ngIf="id == 1 || id == 2">

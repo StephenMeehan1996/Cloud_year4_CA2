@@ -1,4 +1,4 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, EventEmitter, NgModule, OnInit, Output } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -12,15 +12,16 @@ import { WebSocketService } from './services/websocket.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent  {
   constructor(public userService: UserService, private auth: AuthService, private router: Router,private webSocketService: WebSocketService) {}
 
 
+  id: any;
 
   logout() {
     
     this.userService.setUser(null);
-   this.userService.setID(null);
+    this.userService.setID(null);
     this.webSocketService.disconnect();
 
     this.auth.logout();
@@ -28,7 +29,11 @@ export class AppComponent {
     this.router.navigate(['/login']);
    
   }
+
+
 }
+
+
 
 
 
