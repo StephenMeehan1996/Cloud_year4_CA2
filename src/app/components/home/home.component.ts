@@ -21,10 +21,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   user: any = this.userService.getUser()
   id: any;
   stockData: any;
+  orderHistory: Order[] =[]
+  selectedDate: string = '';
+  displayedOrder: Order | undefined;
   storeLocation: string = ''
   storeID: string = ''
 
   subscriptionStock: Subscription = new Subscription;
+  subscriptionHistory: Subscription = new Subscription;
 
   messages: string[] = [];
   subscriptionNotify: Subscription = new Subscription;
@@ -42,8 +46,25 @@ export class HomeComponent implements OnInit, OnDestroy {
   cartItems: { stockItem: string, amount: number }[] = [];
 
 
+  activeTab = 'activeDeliveries';
+
+  setActiveTab(tab: string) {
+    this.activeTab = tab;
+    console.log(this.activeTab);
+  }
+
+  onSelectDate(): void {
+    this.displayedOrder = this.orderHistory.find((order: { Date: string; }) => order.Date === this.selectedDate);
+  }
+
+  convertToTwoDecimalPlaces(value: number): string {
+    return value.toFixed(2);
+  }
+
+  
+
   ngOnInit(): void {
-    this.subscriptionStock = this.apiService.getStockData().subscribe((data: any) => {
+    this.subscriptionStock = this.apiService.getStockData(this.user?.uid ).subscribe((data: any) => {
       this.id = this.userService.getID();
       if (this.id != 3) {
         this.stockData = data;
@@ -56,8 +77,17 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log(this.stockData);
         this.filteredData = this.stockData;
         this.getUniqueDrivers();
+
+        this.subscriptionHistory = this.apiService.getOrderHistory().subscribe((data: any) => {
+          this.orderHistory =  JSON.parse(data.body);;
+          console.log('Order History: ' + JSON.stringify(this.orderHistory));
+        });
       }
     });
+
+
+
+  
 
 
 
@@ -116,9 +146,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   placeOrder() {
-
-
-    this.apiService.postOrder(this.cartItems).subscribe(
+    this.apiService.postOrder(this.cartItems, this.storeLocation, this.storeID ).subscribe(
       response => {
         console.log('Response:', response);
         // Handle success response here
@@ -163,4 +191,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
     );
   }
+}
+
+interface Order {
+  Date: string;
+  ItemTotals: {
+    HeadOfficeIreland: { [key: string]: { Quantity: number, Total: number } },
+    HeadOfficeUSA: { [key: string]: { Quantity: number, Total: number } }
+  },
+  DailyOrderTotalIreland: number;
+  DailyOrderTotalUSA: number;
 }

@@ -3,6 +3,7 @@
   <ul>
     <li>Email: {{ user?.email }}</li>
     <li>Last Log In: {{ user?.metadata.lastSignInTime }}</li>
+    <li>UID: {{ user?.uid }}</li>
     <li>ID: {{ id }}</li>
     <!-- Add more user information as needed -->
   </ul>
@@ -10,7 +11,7 @@
 
 <div *ngIf="id == 1 || id == 2">
   <div class="store-info">
-    <h3>Store ID: {{ storeID }}</h3>
+
     <h3>Store Location: {{ storeLocation }}</h3>
   </div>
 
@@ -72,56 +73,98 @@
 
 <div *ngIf="id == 3">
 
-  <div style="margin-bottom: 10px;">
-    <label for="driverFilter">Filter by Delivery Driver:</label>
-    <select id="driverFilter" [(ngModel)]="selectedDriver" (change)="applyFilter()"
-      style="padding: 1%; margin-right: 20px;">
-      <option value="all">All</option>
-      <option *ngFor="let driver of uniqueDrivers" [value]="driver">{{ driver }}</option>
-    </select>
+  <ul class="tabs">
+    <li [ngClass]="{ 'active': activeTab === 'activeDeliveries' }" (click)="setActiveTab('activeDeliveries')">Active
+      Deliveries</li>
+    <li [ngClass]="{ 'active': activeTab === 'orderHistory' }" (click)="setActiveTab('orderHistory')">Order History</li>
+  </ul>
+
+  <div class="tab-content" *ngIf="activeTab == 'activeDeliveries'">
+    <div style="margin-bottom: 10px;">
+      <label for="driverFilter">Filter by Delivery Driver:</label>
+      <select id="driverFilter" [(ngModel)]="selectedDriver" (change)="applyFilter()"
+        style="padding: 1%; margin-right: 20px;">
+        <option value="all">All</option>
+        <option *ngFor="let driver of uniqueDrivers" [value]="driver">{{ driver }}</option>
+      </select>
+    </div>
+
+    <table class="stock-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Store Location</th>
+          <th>Delivery ID</th>
+          <th>Delivery Driver</th>
+          <th>Pickup</th>
+          <th>Stock Item</th>
+          <th>Amount</th>
+          <th>Action</th> <!-- Added column for the action button -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let delivery of filteredData; let i = index">
+          <td>{{ delivery.date.S }}</td>
+          <td>{{ delivery.status.N }}</td>
+          <td>{{ delivery.StoreLocation.S }}</td>
+          <td>{{ delivery.DeliveryID.S }}</td>
+          <td>{{ delivery.DeliveryDriver.S }}</td>
+          <td>{{ delivery.Pickup.S }}</td>
+          <td>
+            <ng-container *ngFor="let orderItem of delivery.Order.L">
+              {{ orderItem.M.StockItem.S }}<br>
+            </ng-container>
+          </td>
+          <td>
+            <ng-container *ngFor="let orderItem of delivery.Order.L">
+              {{ orderItem.M.Amount.N }}<br>
+            </ng-container>
+          </td>
+          <td>
+            <button (click)="completeDelivery(delivery.DeliveryID.S, i)" class="complete-button">Complete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <table class="stock-table">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Status</th>
-        <th>Store Location</th>
-        <th>Delivery ID</th>
-        <th>Delivery Driver</th>
-        <th>Pickup</th>
-        <th>Stock Item</th>
-        <th>Amount</th>
-        <th>Action</th> <!-- Added column for the action button -->
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let delivery of filteredData; let i = index">
-        <td>{{ delivery.date.S }}</td>
-        <td>{{ delivery.status.N }}</td>
-        <td>{{ delivery.StoreLocation.S }}</td>
-        <td>{{ delivery.DeliveryID.S }}</td>
-        <td>{{ delivery.DeliveryDriver.S }}</td>
-        <td>{{ delivery.Pickup.S }}</td>
-        <td>
-          <ng-container *ngFor="let orderItem of delivery.Order.L">
-            {{ orderItem.M.StockItem.S }}<br>
-          </ng-container>
-        </td>
-        <td>
-          <ng-container *ngFor="let orderItem of delivery.Order.L">
-            {{ orderItem.M.Amount.N }}<br>
-          </ng-container>
-        </td>
-        <td>
-          <button (click)="completeDelivery(delivery.DeliveryID.S, i)" class="complete-button">Complete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="tab-content" *ngIf="activeTab == 'orderHistory'">
+
+    <h2>Order History</h2>
   
-
-
-
-
-</div>
+    <label for="date-select">Select Date:</label>
+    <select id="date-select" [(ngModel)]="selectedDate" (change)="onSelectDate()">
+      <option value="">-- Select Date --</option>
+      <option *ngFor="let order of orderHistory" [value]="order.Date">{{ order.Date }}</option>
+    </select>
+  
+    <table *ngIf="displayedOrder" class="stock-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Daily Order Total (Ireland)</th>
+          <th>Daily Order Total (USA)</th>
+          <th>Stock Items</th> <!-- New column for stock items -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ displayedOrder.Date }}</td>
+          <td> €{{ convertToTwoDecimalPlaces(displayedOrder.DailyOrderTotalIreland )}}</td>
+          <td> €{{ convertToTwoDecimalPlaces(displayedOrder.DailyOrderTotalUSA )}}</td>
+          <td>
+            <ul>
+              <li *ngFor="let item of displayedOrder.ItemTotals.HeadOfficeIreland | keyvalue">
+                {{ item.key }}: Quantity - {{ item.value.Quantity }}, Total -  €{{ item.value.Total }}
+              </li>
+              <li *ngFor="let item of displayedOrder.ItemTotals.HeadOfficeUSA | keyvalue">
+                {{ item.key }}: Quantity - {{ item.value.Quantity }}, Total -  €{{ item.value.Total }}
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

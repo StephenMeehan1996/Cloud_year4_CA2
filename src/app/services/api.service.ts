@@ -11,7 +11,8 @@ export class ApiService {
 
   private hqStockURL = 'https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/HQStock/HEADOFFICEIRELAND'
   private getDeliveryURL ='https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/Deliverys'
-  private storeStockURL = 'https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/StoreStock/f719238f-21a0-4f0b-b60c-99d6b1a93f2b'; 
+  private storeStockURL = 'https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/StoreStock/'; 
+  private historyURL = 'https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/OrderHistory'
   
   //private updateDelURL = "https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/Deliverys/"
    private updateDelURL = "https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/UpdateStatus";
@@ -21,18 +22,18 @@ export class ApiService {
 
   
 
-  getStockData(): Observable<any> {
+  getStockData(id: any): Observable<any> {
 
     let user: any = this.userService.getUser()
 
    if(user.email == 'stephenmeehan1996@gmail.com'){
     this.userService.setID(1);
-    return this.http.get<any>(this.storeStockURL);
+    return this.http.get<any>(this.storeStockURL + id);
     
    }
    else if(user.email == 'donal.peter.peter@gmail.com'){
     this.userService.setID(2);
-    return this.http.get<any>(this.hqStockURL);
+    return this.http.get<any>(this.storeStockURL + id);
    }
    else{
     this.userService.setID(3);
@@ -41,17 +42,33 @@ export class ApiService {
     
   }
 
+  getOrderHistory(): Observable<any> {
+
+    return this.http.get<any>(this.historyURL);
+
+  }
+
   //Order Complete// 
   //Set order to one// 
   //Write to s3//
   //S3//
 
-  postOrder(orderData: any): Observable<any> {
+  postOrder(orderData: any, location : any, id: any): Observable<any> {
     let deliveryURL = 'https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/Deliverys';
+    
+    let plocation = ''
+
+    if(id ==='swbixgfKMCNKNQDYYvq6rJFWHHq1'){
+      plocation = 'HEADOFFICEIRELAND'
+    }
+    else{
+      plocation = 'HEADOFFICEUSA'
+    }
+
     const transformedJson = {
-      "pickupLocation": "HEADOFFICEIRELAND",
-      "storeLocation": "Store 1",
-      "storeid": "f719238f-21a0-4f0b-b60c-99d6b1a93f2b",
+      "pickupLocation": plocation,
+      "storeLocation": location,
+      "storeid": id,
       "items": orderData.map((item: { stockItem: any; amount: any; }) => ({
         "stockItem": item.stockItem,
         "amount": item.amount
