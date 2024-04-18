@@ -65,6 +65,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     return value.toFixed(2);
   }
 
+  postSQSMessage(mes: any){
+
+    this.apiService.postLogMessage('testing');
+
+  }
+
   
 
   ngOnInit(): void {
@@ -101,7 +107,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
 
-    this.webSocketService.connect('HEADOFFICEIRELAND');
+    this.webSocketService.connect(this.user?.uid);
 
     this.subscriptionNotify = this.webSocketService.getMessages().subscribe(
       (message: string) => {

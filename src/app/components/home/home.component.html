@@ -16,6 +16,8 @@
       <p>Last Log In: {{ user?.metadata.lastSignInTime }}</p>
     </div>
   </div>
+
+  <button (click)="postSQSMessage('message')">Send Message to Lambda</button>
 </div>
 
 <div *ngIf="id == 1 || id == 2">

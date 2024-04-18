@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError } from 'rxjs';
 import { UserService } from './user.service';
 
@@ -17,6 +17,7 @@ export class ApiService {
   
   //private updateDelURL = "https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/Deliverys/"
    private updateDelURL = "https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/UpdateStatus";
+   private logger = "https://roko7v7x9d.execute-api.eu-west-1.amazonaws.com/dev/Logger"
   
 
   constructor(private http: HttpClient, private userService: UserService) { }
@@ -104,6 +105,28 @@ export class ApiService {
 
     const url = `${this.updateDelURL}`;
     return this.http.put<any>(url, obj);
+  }
+
+  postLogMessage(m: any){
+
+    const message = {
+      message: 'Hello from Angular'
+    };
+    
+
+    // Make the POST request to Lambda
+    this.http.post(this.logger, message)
+      .subscribe(
+        (response) => {
+          console.log('Message sent successfully:', response);
+          // Handle success
+        },
+        (error) => {
+          console.error('Error sending message:', error);
+          // Handle error
+        }
+      );
+  
   }
 
  
